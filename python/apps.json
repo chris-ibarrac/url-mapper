@@ -1,0 +1,6 @@
+{
+  "apps": [
+    { "id": 1, "name": "App 1", "url": "https://example.com" },
+    { "id": 2, "name": "App 2", "url": "https://example2.com" }
+  ]
+}

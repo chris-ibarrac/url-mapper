@@ -1,0 +1,49 @@
+services:
+  ray-head:
+    image: rayproject/ray:latest
+    container_name: ray-head
+    command: >
+      bash -c "ray start --head --port=6379 --dashboard-host 0.0.0.0 --node-ip-address=ray-head && tail -f /dev/null"
+    networks:
+      - ray-net
+    ports:
+      - "6379:6379"     # Comunicación interna de Ray
+      - "8265:8265"     # Ray Dashboard (web)
+      - "10001:10001"   # Ray Client API (para ray://)
+    volumes:
+      - .:/app
+    working_dir: /app
+    shm_size: 1g
+
+  ray-worker:
+    image: rayproject/ray:latest
+    depends_on:
+      - ray-head
+    command: >
+      bash -c "ray start --address='ray-head:6379' --node-ip-address=$(hostname -i) && tail -f /dev/null"
+    networks:
+      - ray-net
+    volumes:
+      - .:/app
+    working_dir: /app
+    deploy:
+      replicas: 2
+    shm_size: 1g
+
+  app:
+    image: prime-ray-img
+    depends_on:
+      - ray-head
+      - ray-worker
+    networks:
+      - ray-net
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: python app.py
+    environment:
+      - RAY_ADDRESS=ray://ray-head:10001
+
+networks:
+  ray-net:
+    driver: bridge
