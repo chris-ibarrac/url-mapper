@@ -29,6 +29,20 @@ services:
     deploy:
       replicas: 2
     shm_size: 2g
+  
+  ray-bash:
+    image: rayproject/ray:latest
+    depends_on:
+      - ray-head
+    command: >
+      bash -c "tail -f /dev/null"
+    networks:
+      - ray-net
+    volumes:
+      - .:/app
+    working_dir: /app
+    deploy:
+      replicas: 1
 
   app:
     image: prime-ray-img

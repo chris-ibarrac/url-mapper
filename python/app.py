@@ -5,6 +5,7 @@ import math
 import time
 import os
 
+
 # Set up logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -32,6 +33,7 @@ def is_prime(n):
     for i in range(2, int(math.sqrt(n)) + 1):
         if n % i == 0:
             return False
+    print(f"Found prime: {n}")
     return True
 
 # Remote function to find primes in a range
@@ -64,17 +66,25 @@ def main(start_number=1000, num_batches=4, batch_size=1000):
         logger.info("Ray shutdown")
         time.sleep(10)  # Ensure logs are captured
 
+
 if __name__ == "__main__":
     try:
         # Use defaults if arguments are missing or invalid
-        start_number = int(sys.argv[1]) if len(sys.argv) > 1 and sys.argv[1].isdigit() else 1000
-        num_batches = int(sys.argv[2]) if len(sys.argv) > 2 and sys.argv[2].isdigit() else 4
-        batch_size = int(sys.argv[3]) if len(sys.argv) > 3 and sys.argv[3].isdigit() else 1000
+        try:
+            start_number = int(sys.argv[1]) if len(sys.argv) > 1 and sys.argv[1].isdigit() else 1
+            num_batches = int(sys.argv[2]) if len(sys.argv) > 2 and sys.argv[2].isdigit() else 20
+            batch_size = int(sys.argv[3]) if len(sys.argv) > 3 and sys.argv[3].isdigit() else 1_00
+            logger.info("Usando argumentos desde línea de comandos")
+        except IndexError:
+            start_number_ = int(os.getenv("START_NUMBER", 1))
+            num_batches_ = int(os.getenv("NUM_BATCHES", 20))
+            batch_size_ = int(os.getenv("BATCH_SIZE", 100))
+            logger.info("Usando argumentos desde variables de entorno")
         
         # Validate arguments
         if start_number < 0 or num_batches < 1 or batch_size < 1:
             logger.error("Arguments must be positive integers; using defaults")
-            start_number, num_batches, batch_size = 1000, 4, 1000
+            start_number, num_batches, batch_size = 1, 20, 100
         
         logger.info(f"Using arguments: start_number={start_number}, num_batches={num_batches}, batch_size={batch_size}")
         main(start_number, num_batches, batch_size)
