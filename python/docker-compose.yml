@@ -13,7 +13,7 @@ services:
     volumes:
       - .:/app
     working_dir: /app
-    shm_size: 1g
+    shm_size: 2g
 
   ray-worker:
     image: rayproject/ray:latest
@@ -28,7 +28,7 @@ services:
     working_dir: /app
     deploy:
       replicas: 2
-    shm_size: 1g
+    shm_size: 2g
 
   app:
     image: prime-ray-img
