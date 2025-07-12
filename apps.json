@@ -1,0 +1,33 @@
+{
+    "apps": [
+        {
+            "id": 100,
+            "name": "assigned_to",
+            "url": "https://creative-solutions-pepsico-com.wspuat.com/brief-automatization/AMESAAllMarketsWebhookGeneric?api-key=$2b$10$epyVzpFsEVw6a4Yf",
+            "group": "brief-automatization",
+            "enviroment": "production"
+        },
+        {
+            "id": 200,
+            "name": "create_pulse",
+            "url": "https://creative-solutions-pepsico-com.wspuat.com/brief-automatization/AMESAAllMarketsWebhookGeneric?api-key=$2b$10$epyVzpFsEVw6a4Yf",
+            "group": "brief-automatization",
+            "enviroment": "production"
+        },
+        {
+            "id": 300,
+            "name": "assigned_to",
+            "url": "https://url-mapper.onrender.com?id=400",
+            "group": "brief-automatization",
+            "enviroment": "production"
+        },
+        {
+            "id": 400,
+            "name": "create_pulse",
+            "url": "https://bd5401cbc4fb.ngrok-free.app/brief-automatization/AMESAAllMarketsWebhookGeneric?api-key=$2b$10$epyVzpFsEVw6a4Yf",
+            "group": "brief-automatization",
+            "enviroment": "production"
+        }
+
+    ]
+}

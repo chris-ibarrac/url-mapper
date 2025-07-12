@@ -1,0 +1,48 @@
+POST https://url-mapper.onrender.com
+Content-Type: application/json
+
+{
+  "event": "user_signup",
+  "data": {
+    "user_id": "12345",
+    "email": "user@example.com",
+    "signup_date": "2023-10-01T12:00:00Z",
+    "referrer": "https://example.com/referral"
+  },
+  "metadata": {
+    "source": "webhook"
+  }
+}
+
+###
+POST http://localhost:3000
+Content-Type: application/json
+
+{
+  "event": "user_signup",
+  "data": {
+    "user_id": "12345",
+    "email": "user@example.com",
+    "signup_date": "2023-10-01T12:00:00Z",
+    "referrer": "https://example.com/referral"
+  },
+  "metadata": {
+    "source": "webhook"
+  }
+}
+###
+POST http://localhost:3000/webhook
+Content-Type: application/json
+
+{
+    "challenge": "test_challenge"
+}
+
+###
+POST http://localhost:3000/app?id=100
+Content-Type: application/json
+
+###
+POST https://url-mapper.onrender.com/app?id=100
+Content-Type: application/json
+ 
